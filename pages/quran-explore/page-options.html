@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بستان القرآن — استكشاف تصميم الصفحة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Quran Garden palette — warm cream + gold + teal (visual option 3) */
+  :root{
+    --teal:#1A9B7B; --teal-dk:#147a60; --teal-lt:#5fc3a8;
+    --gold:#E8A82F; --gold-dk:#B5811F; --gold-lt:#FFD56B;
+    --cream:#FFF7E6; --paper:#FFFDF4; --paper-edge:#F2E4C2;
+    --ink:#3A2E1A; --ink-2:#6B5A3C; --ink-3:#9A8B6C;
+    --rose:#EC6A8C; --sky:#5BB8E8; --leaf:#7CC576;
+    --shadow:0 8px 30px rgba(60,40,10,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Tajawal',sans-serif;background:#EFE7D6}
+  .quran-ar{font-family:'Amiri Quran','Amiri',serif}
+
+  /* ─────────── SHARED BOOK SHELL ─────────── */
+  .book{
+    width:300px;
+    background:linear-gradient(180deg,var(--paper),var(--cream));
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+    border:1px solid var(--paper-edge);
+  }
+  .book .spine{
+    position:absolute;top:0;bottom:0;left:50%;width:2px;
+    background:linear-gradient(180deg,transparent,rgba(120,90,30,.18),transparent);
+    transform:translateX(-50%);z-index:3;pointer-events:none;
+  }
+
+  /* page number ribbon */
+  .pg-ribbon{
+    position:absolute;top:0;inset-inline-end:14px;z-index:4;
+    background:var(--gold);color:#fff;font-weight:900;font-size:.7rem;
+    padding:.5rem .5rem .35rem;border-radius:0 0 8px 8px;
+    box-shadow:0 3px 8px rgba(0,0,0,.15);
+  }
+
+  /* ───────── A · GARDEN SCENE TOP ───────── */
+  .pa .scene{
+    height:120px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#BDE7FA 0%,#E8F6D5 75%,#CDEBA8 100%);
+  }
+  .pa .scene .sun{position:absolute;top:12px;inset-inline-start:18px;width:34px;height:34px;border-radius:50%;
+    background:radial-gradient(circle,#FFF1A0,var(--gold-lt));box-shadow:0 0 22px rgba(255,217,61,.7)}
+  .pa .scene .hill{position:absolute;bottom:0;left:0;right:0;height:46px;
+    background:radial-gradient(120px 46px at 30% 100%,#9CD67E,transparent 70%),
+              radial-gradient(120px 50px at 80% 100%,#88CD78,transparent 70%),
+              linear-gradient(180deg,#A5D873,#7CC158)}
+  .pa .scene .tree{position:absolute;bottom:30px;font-size:1.6rem}
+  .pa .scene .book-icon{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+    font-size:2.4rem;filter:drop-shadow(0 4px 4px rgba(0,0,0,.18));animation:bob 3s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
+  .pa .surah-band{
+    background:linear-gradient(90deg,var(--teal),var(--teal-dk));
+    color:#fff;text-align:center;padding:.5rem;position:relative;
+  }
+  .pa .surah-band .name{font-weight:900;font-size:1.1rem}
+  .pa .surah-band .meta{font-size:.66rem;opacity:.9;font-weight:700}
+  .pa .verses{padding:1rem .9rem;text-align:center}
+  .pa .ayah{
+    font-size:1.5rem;line-height:2.4;color:var(--ink);
+    margin-bottom:.2rem;
+  }
+  .pa .ayah .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:24px;height:24px;font-size:.62rem;font-family:'Tajawal';font-weight:900;
+    color:var(--gold-dk);background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1l2.5 2.5L18 3l.5 3.5L22 8l-1.5 3.2L22 14l-3.5 1.5L18 19l-3.5-.5L12 21l-2.5-2.5L6 19l-.5-3.5L2 14l1.5-2.8L2 8l3.5-1.5L6 3l3.5.5z" fill="%23FFE9B0" stroke="%23E8A82F"/></svg>') center/contain no-repeat;
+    margin:0 .15rem;vertical-align:middle;
+  }
+  .pa .word{cursor:pointer;border-radius:6px;padding:0 2px;transition:.15s}
+  .pa .word.tap{background:#FFE9A8;box-shadow:0 0 0 2px var(--gold-lt)}
+  .pa .meaning-pop{
+    margin:.4rem auto 0;max-width:90%;
+    background:#FFF8E1;border:2px dashed var(--gold);border-radius:12px;
+    padding:.45rem .7rem;font-size:.8rem;color:var(--ink-2);font-weight:700;
+  }
+  .pa .row-tabs{display:flex;gap:.35rem;padding:.5rem .7rem .8rem}
+  .pa .row-tabs .tab{
+    flex:1;text-align:center;font-size:.68rem;font-weight:900;
+    padding:.4rem .2rem;border-radius:12px;border:2px solid var(--teal-lt);
+    color:var(--teal-dk);background:#fff;
+  }
+  .pa .row-tabs .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+  /* ───────── B · STAINED-GLASS / ILLUMINATED ───────── */
+  .pb{background:linear-gradient(180deg,#0E3B30,#0A2A22)}
+  .pb .frame{
+    margin:12px;border:3px solid var(--gold);border-radius:14px;
+    background:linear-gradient(180deg,#FCF6E3,#F6EAC8);
+    padding:1rem .9rem 1.1rem;position:relative;
+    box-shadow:inset 0 0 0 2px rgba(212,175,55,.4);
+  }
+  .pb .corner{position:absolute;width:18px;height:18px;border:2px solid var(--gold)}
+  .pb .corner.tl{top:6px;inset-inline-start:6px;border-inline-end:0;border-bottom:0;border-radius:6px 0 0 0}
+  .pb .corner.tr{top:6px;inset-inline-end:6px;border-inline-start:0;border-bottom:0;border-radius:0 6px 0 0}
+  .pb .corner.bl{bottom:6px;inset-inline-start:6px;border-inline-end:0;border-top:0;border-radius:0 0 0 6px}
+  .pb .corner.br{bottom:6px;inset-inline-end:6px;border-inline-start:0;border-top:0;border-radius:0 0 6px 0}
+  .pb .crest{text-align:center;margin-bottom:.5rem}
+  .pb .crest .arch{
+    display:inline-block;background:linear-gradient(180deg,var(--teal),var(--teal-dk));
+    color:#fff;padding:.5rem 1.4rem .6rem;border-radius:40px 40px 12px 12px;
+    font-weight:900;font-size:1.05rem;box-shadow:0 4px 10px rgba(0,0,0,.2);
+    border:2px solid var(--gold-lt);
+  }
+  .pb .crest .meta{font-size:.62rem;color:var(--gold-dk);font-weight:800;margin-top:.3rem}
+  .pb .ayah{font-size:1.45rem;line-height:2.5;text-align:center;color:#1c1505}
+  .pb .ayah .num{color:var(--gold-dk);font-family:'Tajawal';font-weight:900;font-size:.72rem}
+  .pb .divider{height:14px;margin:.4rem auto;width:60%;
+    background:repeating-linear-gradient(90deg,var(--gold) 0 6px,transparent 6px 12px);
+    -webkit-mask:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);opacity:.5}
+  .pb .lantern{
+    display:flex;align-items:center;gap:.5rem;justify-content:center;
+    margin-top:.5rem;background:#FFF8E1;border:2px solid var(--gold);
+    border-radius:30px;padding:.4rem .8rem;font-size:.74rem;font-weight:800;color:var(--ink-2);
+  }
+  .pb .lantern .lamp{font-size:1.2rem;animation:glow 2s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:drop-shadow(0 0 2px var(--gold))}50%{filter:drop-shadow(0 0 8px var(--gold-lt))}}
+
+  /* ───────── C · STORYBOOK SPLIT ───────── */
+  .pc .topbar{
+    background:linear-gradient(90deg,var(--gold),var(--gold-dk));color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:.5rem .8rem;
+  }
+  .pc .topbar .name{font-weight:900;font-size:1.05rem}
+  .pc .topbar .listen{background:#fff;color:var(--gold-dk);border:none;border-radius:30px;
+    width:30px;height:30px;font-size:.9rem;box-shadow:0 2px 5px rgba(0,0,0,.18)}
+  .pc .illus{
+    height:108px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#FCE9C8,#F7D9A8);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .pc .illus .big{font-size:3.2rem;filter:drop-shadow(0 5px 5px rgba(0,0,0,.15))}
+  .pc .illus .cloud{position:absolute;top:12px;width:40px;height:14px;background:#fff;border-radius:20px;opacity:.85}
+  .pc .illus .c1{inset-inline-start:18px}
+  .pc .illus .c2{inset-inline-end:24px;top:26px;width:30px}
+  .pc .ayah-card{
+    margin:-22px 14px 0;position:relative;z-index:2;
+    background:#fff;border-radius:14px;border:2.5px solid var(--gold-lt);
+    padding:.8rem .7rem;text-align:center;box-shadow:0 6px 16px rgba(60,40,10,.12);
+  }
+  .pc .ayah-card .ayah{font-size:1.35rem;line-height:2.3;color:var(--ink)}
+  .pc .ayah-card .num{color:var(--gold-dk);font-family:'Tajawal';font-weight:900;font-size:.66rem}
+  .pc .tafsir{
+    margin:.7rem .9rem;background:linear-gradient(135deg,#E8F6EF,#D4EFE3);
+    border-inline-start:4px solid var(--teal);border-radius:10px;
+    padding:.55rem .7rem;font-size:.8rem;line-height:1.6;color:var(--teal-dk);font-weight:700;
+  }
+  .pc .tafsir b{color:var(--ink)}
+  .pc .lesson{
+    margin:.5rem .9rem .9rem;background:#FFF1D6;border:2px dashed var(--gold);
+    border-radius:10px;padding:.5rem .7rem;font-size:.76rem;font-weight:800;color:var(--gold-dk);
+    display:flex;align-items:center;gap:.4rem;
+  }
+
+  /* labels under each artboard handled by canvas; captions inside */
+  .cap{font-size:.7rem;color:#fff;background:rgba(0,0,0,.35);border-radius:20px;
+    padding:.2rem .7rem;display:inline-block;margin-bottom:8px;font-weight:800}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel">
+const { useState } = React;
+
+/* Surah al-Ikhlas — verified Uthmani text */
+function PageA(){
+  const [tap,setTap] = useState(false);
+  return (
+    <div className="book pa">
+      <div className="spine"></div>
+      <div className="pg-ribbon">١١٢</div>
+      <div className="scene">
+        <div className="sun"></div>
+        <div className="tree" style={{insetInlineStart:'14px'}}>🌳</div>
+        <div className="tree" style={{insetInlineEnd:'16px',fontSize:'1.3rem'}}>🌴</div>
+        <div className="book-icon">📖</div>
+        <div className="hill"></div>
+      </div>
+      <div className="surah-band">
+        <div className="name quran-ar">سُورَةُ الإِخْلَاص</div>
+        <div className="meta">مكية · ٤ آيات · «ثُلث القرآن»</div>
+      </div>
+      <div className="verses">
+        <div className="ayah quran-ar">
+          قُلْ هُوَ ٱللَّهُ{' '}
+          <span className={"word"+(tap?" tap":"")} onClick={()=>setTap(t=>!t)}>أَحَدٌ</span>
+          <span className="num">١</span>
+        </div>
+        {tap && <div className="meaning-pop">✋ <b>أَحَدٌ</b> = الله واحدٌ لا شريك له، لا مثيل له أبداً.</div>}
+        <div className="ayah quran-ar">ٱللَّهُ ٱلصَّمَدُ<span className="num">٢</span></div>
+        <div className="ayah quran-ar">لَمْ يَلِدْ وَلَمْ يُولَدْ<span className="num">٣</span></div>
+      </div>
+      <div className="row-tabs">
+        <div className="tab on">📖 الآيات</div>
+        <div className="tab">🌱 تفسير</div>
+        <div className="tab">🏮 تدبر</div>
+        <div className="tab">🎯 لعبة</div>
+      </div>
+    </div>
+  );
+}
+
+function PageB(){
+  return (
+    <div className="book pb">
+      <div className="pg-ribbon">١١٢</div>
+      <div className="frame">
+        <span className="corner tl"></span><span className="corner tr"></span>
+        <span className="corner bl"></span><span className="corner br"></span>
+        <div className="crest">
+          <div className="arch quran-ar">سُورَةُ الإِخْلَاص</div>
+          <div className="meta">مكية · ٤ آيات · تعدل ثلث القرآن</div>
+        </div>
+        <div className="ayah quran-ar">قُلْ هُوَ ٱللَّهُ أَحَدٌ<span className="num"> ﴿١﴾ </span></div>
+        <div className="ayah quran-ar">ٱللَّهُ ٱلصَّمَدُ<span className="num"> ﴿٢﴾ </span></div>
+        <div className="divider"></div>
+        <div className="ayah quran-ar">لَمْ يَلِدْ وَلَمْ يُولَدْ<span className="num"> ﴿٣﴾ </span></div>
+        <div className="ayah quran-ar">وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ<span className="num"> ﴿٤﴾ </span></div>
+        <div className="lantern"><span className="lamp">🏮</span> اضغط الفانوس لتتدبّر…</div>
+      </div>
+    </div>
+  );
+}
+
+function PageC(){
+  return (
+    <div className="book pc">
+      <div className="topbar">
+        <div className="name quran-ar">الإخلاص</div>
+        <button className="listen">▶</button>
+      </div>
+      <div className="illus">
+        <span className="cloud c1"></span><span className="cloud c2"></span>
+        <span className="big">🌟</span>
+      </div>
+      <div className="ayah-card">
+        <div className="ayah quran-ar">قُلْ هُوَ ٱللَّهُ أَحَدٌ<span className="num"> ﴿١﴾</span></div>
+        <div className="ayah quran-ar">ٱللَّهُ ٱلصَّمَدُ<span className="num"> ﴿٢﴾</span></div>
+      </div>
+      <div className="tafsir">🌱 <b>قصة المعنى:</b> سأل الناسُ النبيَّ ﷺ: صِف لنا ربك! فنزلت هذه السورة تقول: الله <b>واحدٌ</b>، الكلُّ يحتاجه وهو لا يحتاج أحداً.</div>
+      <div className="lesson">💡 درس اليوم: أُحبُّ اللهَ وحده وأدعوه وحده.</div>
+    </div>
+  );
+}
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <DesignCanvas>
+    <DCSection id="page-designs" title="بستان القرآن · تصميم صفحة المصحف الساحر" subtitle="ثلاث اتجاهات لشكل الصفحة — سورة الإخلاص نموذجاً">
+      <DCArtboard id="a" label="A · حديقة حيّة + كلمات تفاعلية" width={300} height={470}>
+        <div style={{padding:'8px',textAlign:'center'}}><span className="cap">اضغط «أَحَدٌ» لرؤية المعنى</span></div>
+        <PageA/>
+      </DCArtboard>
+      <DCArtboard id="b" label="B · مصحف مُذهّب (Illuminated)" width={300} height={470}>
+        <PageB/>
+      </DCArtboard>
+      <DCArtboard id="c" label="C · كتاب قصصي + تفسير الصغار" width={300} height={470}>
+        <PageC/>
+      </DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+</script>
+</body>
+</html>
