@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>بستان القرآن | Quran Garden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/quran.css">
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="q-hdr">
+  <a class="q-brand" href="../index.html" title="تربية الطفل المسلم">
+    <span class="ico">🌿</span>
+    <span><span class="lng-ar">المدينة</span><span class="lng-en">City</span></span>
+  </a>
+  <span class="q-badge">
+    <span>📖</span>
+    <span class="lng-ar">بستان القرآن</span>
+    <span class="lng-en">Quran Garden</span>
+  </span>
+  <div class="q-actions">
+    <div class="q-lang">
+      <button data-lang="en">EN</button>
+      <button data-lang="ar" class="active">عربي</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ GARDEN VIEW ═══ -->
+<div class="garden">
+  <div class="g-sun"></div>
+  <div class="g-cloud c1"></div>
+  <div class="g-cloud c2"></div>
+  <span class="g-bird b1">🕊️</span>
+  <span class="g-bird b2">🐦</span>
+
+  <div class="g-intro">
+    <h1 class="g-title">
+      <span class="lng-ar">🌿 بُستان القرآن</span>
+      <span class="lng-en">🌿 The Quran Garden</span>
+    </h1>
+    <p class="g-sub">
+      <span class="lng-ar">المُصحفُ الساحر — اقطف سورةً واغرسها في قلبك!</span>
+      <span class="lng-en">The Magic Book — pick a surah and plant it in your heart!</span>
+    </p>
+  </div>
+
+  <div class="g-guide">
+    <div class="speech">
+      <span class="lng-ar">أنا «أنس»، تعال نتدبّر آيات القرآن!</span>
+      <span class="lng-en">I'm Anas — let's reflect on the Quran together!</span>
+    </div>
+    <div class="who">👦</div>
+  </div>
+
+  <!-- surah fruits -->
+  <div class="g-shelf">
+    <div class="shelf-grid" id="shelfGrid"></div>
+  </div>
+
+  <!-- progress garden -->
+  <div class="g-progress">
+    <div class="gp-card">
+      <div class="gp-hdr">
+        <div class="ic">🌳</div>
+        <div>
+          <h3><span class="lng-ar">حديقة الحفظ</span><span class="lng-en">My Memory Garden</span></h3>
+          <p id="gpCount"></p>
+        </div>
+      </div>
+      <div class="gp-row" id="gpRow"></div>
+    </div>
+  </div>
+
+  <div class="g-ground"></div>
+  <div class="g-flowers"><span>🌷</span><span>🌻</span><span>🌱</span><span>🌼</span><span>🌷</span><span>🌿</span></div>
+
+  <footer class="q-foot">
+    <span class="lng-ar">صُنع بحب 💚 لأطفال الأمة — <b>بستان القرآن</b></span>
+    <span class="lng-en">Made with 💚 for the children of the Ummah — <b>Quran Garden</b></span>
+  </footer>
+</div>
+
+<!-- ═══ BOOK READER ═══ -->
+<div class="reader" id="reader">
+  <div class="r-nav">
+    <button class="r-back" id="rBack">
+      <span>←</span>
+      <span class="lng-ar">البستان</span>
+      <span class="lng-en">Garden</span>
+    </button>
+    <div class="r-center">
+      <div class="nm quran-ar" id="rNm"></div>
+      <div class="mt" id="rMt"></div>
+    </div>
+    <div class="r-pager">
+      <button class="r-arrow" id="rPrev">‹</button>
+      <button class="r-arrow" id="rNext">›</button>
+    </div>
+  </div>
+
+  <div class="book-stage">
+    <div class="book" id="book"></div>
+  </div>
+</div>
+
+<!-- ═══ CONFETTI + TOAST ═══ -->
+<div id="confetti"></div>
+<div class="toast" id="toast"></div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="quran-data/_index.js"></script>
+<script src="quran-data/fatihah.js"></script>
+<script src="quran-data/ikhlas.js"></script>
+<script src="quran-data/falaq.js"></script>
+<script src="quran-data/nas.js"></script>
+<script src="assets/quran.js"></script>
+
+</body>
+</html>
